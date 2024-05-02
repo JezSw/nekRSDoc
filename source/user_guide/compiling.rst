@@ -2,8 +2,7 @@ Compiling nekRS
 ===============
 
 This page describes how to build nekRS in a general sense, as well as providing
-specific instructions for some of the more common HPC systems used by the nekRS
-development team.
+guidelines for some of the common HPC enviornments which might get used.
 
 First, clone the repository from `github <https://github.com/Nek5000/nekRS>`__.
 Next, set the ``NEKRS_HOME`` environment variable to a location in your file
@@ -38,9 +37,3 @@ to build without :term:`CUDA`, :term:`HIP`, *and* :term:`OpenCL`, you can run:
 .. code-block::
 
   user$ ./makenrs 0 0 0
-
-Summit
-------
-
-Sawtooth
---------

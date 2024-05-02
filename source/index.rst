@@ -1,3 +1,5 @@
+.. _nekrs:
+
 The nekRS Computational Fluid Dynamics Code
 ===================================================
 
@@ -31,15 +33,11 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   theory
-   input_files
-   commonly_used_variables
-   compiling
+   quickstart
+   user_guide/_user_guide
    tutorials
-   detailed_usage
-   plugins
-   just_in_time_compilation
-   doxygen
+   developer_guide/_developer_guide
+   theory
    glossary
    references
 
