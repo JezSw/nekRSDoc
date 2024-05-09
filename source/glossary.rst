@@ -35,8 +35,11 @@ Glossary
     CPU
       Central Processing Unit
 
+    DPC++
+      Data Parallel C++, an programming Language implementation of Intel's :term:`oneAPI` / :term:`SYCL`
+
     ENRICO
-      Exascale Nuclear Reactor Investigative COde that couples nekRS to neutronics tools, see it on `github <https://github.com/enrico-dev/enrico>`__.
+      Exascale Nuclear Reactor Investigative Code that couples nekRS to neutronics tools, see it on `github <https://github.com/enrico-dev/enrico>`__.
 
     FPGA
       Field-Programmable Gate Array
@@ -68,6 +71,9 @@ Glossary
     OKL
       OCCA Kernel Language
 
+    oneAPI
+      Intel's standard for a :term:`API` to be used across :term:`GPU`'s and other accelerators
+
     OpenCL
       A standard maintained by the Khronos Group for programming with :term:`CPUs<CPU>`, :term:`GPUs<GPU>`, :term:`FPGAs<FPGA>`, and other hardware accelerators.
 
@@ -79,6 +85,9 @@ Glossary
 
     SST
       Shear Stress Transport
+
+    SYCL
+      A higher-level programming model for :term:`GPU`'s and other accelerators maintained by the Khronos Group
 
     UIUC
       The University of Illinois at Urbana-Champaign

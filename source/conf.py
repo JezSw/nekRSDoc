@@ -97,8 +97,13 @@ html_theme_options = {"collapse_navigation": False}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = [".static"]
+html_static_path = ["_static"]
 
+# These paths are either relative to html_static_path
+# or fully qualified paths (eg. https://...)
+html_css_files = [
+    'css/nekrs.css',
+]
 
 # -- Options for HTMLHelp output ------------------------------------------
 
@@ -195,38 +200,36 @@ epub_exclude_files = ["search.html"]
 
 
 def build_doxygen(app):
+    # Get output directories from Doxyfile
+    try:
+        with open(path.join(app.srcdir, "Doxyfile")) as f:
+            doxy_opts = f.read()
+    except IOError:
+        print(f"Cannot open Doxyfile at {app.srcdir}, quitting")
+        exit(-1)
+    
+    xml_match = re.search("XML_OUTPUT\s*=\s*(.*)", doxy_opts)
+    if xml_match and len(xml_match.groups()) > 0:
+        doxygen_xmldir = xml_match.group(1)
+    else:
+        print("Cannot find Doxygen XML output path, quitting")
+        exit(-1)
 
-    # XML goes in Sphinx source dir, and HTML goes in Sphinx output dir
-
-    doxygen_xmldir = path.abspath(path.join(app.srcdir, "doxygen", "xml"))
-    doxygen_htmldir = path.abspath(path.join(app.outdir, "doxygen", "html"))
-
+    html_match = re.search("HTML_OUTPUT\s*=\s*(.*)", doxy_opts)
+    if html_match and len(html_match.groups()) > 0:
+        doxygen_htmldir = html_match.group(1)
+    else:
+        print("Cannot find Doxygen HTML output path, quitting")
+        exit(-1)
+    
     # Doxygen won't create *nested* output dirs, so we do it ourselves.
-
+    print(f"Creating Doxygen paths {doxygen_xmldir} and {doxygen_htmldir}")
     for d in (doxygen_xmldir, doxygen_htmldir):
         makedirs(d, exist_ok=True)
 
-    # Need to know location of Doxyfile, so we'll assume its location relative to Sphinx srcdir
-    doxyfile_dir = path.join(app.outdir, "nekRS")
-
-    # To pass output dirs to Doxygen, we follow this advice:
-    # http://www.doxygen.nl/manual/faq.html#faq_cmdline
-    # Here we read the Doxyfile into a string, replace the *_OUTPUT vars, and pass the string as
-    # stdin to the doxygen subprocess
-
-    with open(path.join(doxyfile_dir, "Doxyfile")) as f:
-        doxy_opts = f.read()
-    doxy_opts = re.sub(
-        r"(\bHTML_OUTPUT\b\s*=\s*).*", r'\1"{}"'.format(doxygen_htmldir), doxy_opts
-    )
-    doxy_opts = re.sub(
-        r"(\bXML_OUTPUT\b\s*=\s*).*", r'\1"{}"'.format(doxygen_xmldir), doxy_opts
-    )
-
     subprocess.run(
-        ["doxygen", "-"],
-        cwd=doxyfile_dir,
-        input=doxy_opts,
+        ["doxygen"],
+        cwd=app.srcdir,
         universal_newlines=True,
         check=True,
     )
