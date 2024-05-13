@@ -1,15 +1,17 @@
-Compiling nekRS
-===============
+.. _installing:
 
-This page gives a variety of information to help compile the software 
-successfully how to build nekRS in a general sense, including a brief 
-explanation of the 3rd party dependencies that might effect how this is 
-conducted.
+Installing nekRS
+================
+
+This page gives a variety of information to help install the nekRS.
+This includes how to acquire & build nekRS appropriately to your environment, as 
+well as some information on the scripts that may be required to pre/post process
+files or help with running options.
 
 Requirements
 ------------
 
-You will require the following to compile nekRS.
+You will require the following to compile/run nekRS.
 
 * Linux, Mac OS X (Microsoft WSL and Windows is not supported) 
 * C++17/C99 compatible compiler 
@@ -20,29 +22,41 @@ You will require the following to compile nekRS.
 * MPI-3.1 or later
 * CMake version 3.18 or later 
 
-Dependencies
-""""""""""""
+It is also suggested that you have a GPU and the corresponding drivers/API 
+installed to increase performance. This will likely be a NVidia (:term:`CUDA`), 
+:term:`AMD` (:term:`HIP`),
+Intel (:term:`DPC++`/:term:`oneAPI`) or Apple (:term:`Metal`) device/API 
+combination, with any restrictions of the these below:
 
-This section will outline the main dependencies that nekRS uses and how they 
-might be affected by your environment. If enabled, they are compiled as part of 
-the nekRS build process from the 
+* CUDA - toolkit must be version >= 11 and < 12
+
+Dependencies
+------------
+
+The table below outlines the main dependencies that nekRS uses and the 
+additional requirements that they introduce. If enabled (see :ref:`optional`), 
+they are compiled as part of the nekRS build process from the 
 `3rd_party <https://github.com/Nek5000/nekRS/tree/master/3rd_party>`__ directory.
 
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
-| Dependency | Optional |                                         Description                                         | Additional Requirements |            (Github) Link             |
-+============+==========+=============================================================================================+=========================+======================================+
-| AMGX       | ???      | GPU accelerated core solver library                                                         | CUDA                    | https://github.com/NVIDIA/AMGX       |
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
-| CVODE      | ???      | solver for stiff and nonstiff ordinary differential equation (ODE) systems form y' = f(t,y) | ???                     | https://github.com/LLNL/sundials     |
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
-| GSlib      | ???      | ???                                                                                         |                         | https://github.com/Nek5000/gslib     |
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
-| HYPRE      | ???      | ???                                                                                         |                         | https://github.com/hypre-space/hypre |
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
-| nek5000    | ???      | Fortran predecessor to nekRS                                                                |                         | https://github.com/Nek5000/Nek5000   |
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
-| OCCA       | ???      | portable, and vendor neutral framework for parallel programming on heterogeneous platforms  |                         | https://github.com/libocca/occa      |
-+------------+----------+---------------------------------------------------------------------------------------------+-------------------------+--------------------------------------+
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
+| Dependency | Optional |                            Description                             | Additional   |            (Github) Link             |
+|            |          |                                                                    | Requirements |                                      |
++============+==========+====================================================================+==============+======================================+
+| AMGX       | N        | GPU accelerated core solver library                                | CUDA         | https://github.com/NVIDIA/AMGX       |
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
+| CVODE      | Y        | Solver for stiff and nonstiff ordinary differential equation (ODE) | ???          | https://github.com/LLNL/sundials     |
+|            |          | systems form y' = f(t,y)                                           |              |                                      |
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
+| GSlib      | N        | ???                                                                | ???          | https://github.com/Nek5000/gslib     |
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
+| HYPRE      | Y        | Library of high performance, multigrid preconditioners/solvers of  | ???          | https://github.com/hypre-space/hypre |
+|            |          | large, sparse linear systems of equations                          |              |                                      |
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
+| nek5000    | N        | Fortran predecessor to nekRS                                       | ???          | https://github.com/Nek5000/Nek5000   |
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
+| OCCA       | N        | Portable/vendor neutral framework for parallel programming on      | ???          | https://github.com/libocca/occa      |
+|            |          | heterogeneous platforms                                            |              |                                      |
++------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
 
 Acquiring the code
 """"""""""""""""""
@@ -150,8 +164,11 @@ GPU support
 | ``NEKRS_GPU_MPI`` | Enable :term:`GPU` aware :term:`MPI`                | ON      |
 +-------------------+-----------------------------------------------------+---------+
 
+.. _optional:
+
 Optional features
 """""""""""""""""
+
 +----------------------+----------------------------+---------+------------------------------------------------------------+
 |         Flag         |        Description         | Default |                           Notes                            |
 +======================+============================+=========+============================================================+
@@ -159,6 +176,7 @@ Optional features
 +----------------------+----------------------------+---------+------------------------------------------------------------+
 | ``ENABLE_AMGX``      | Enable NVIDIA AMGX support | **OFF** | Requires CUDA (I.E. ``ENABLE_CUDA`` to evaluate correctly) |
 +----------------------+----------------------------+---------+------------------------------------------------------------+
-| ``ENABLE_CVODE``     | Enable CVODE support       | **OFF** | Unsupported with ``OCCA_OPENCL_ENABLED``,                  |
-|                      |                            |         | ``OCCA_DPCPP_ENABLED`` or ``OCCA_HIP_ENABLED``             |
+| ``ENABLE_CVODE``     | Enable CVODE support       | **OFF** | Unsupported when ``OCCA_OPENCL_ENABLED``,                  |
+|                      |                            |         | ``OCCA_DPCPP_ENABLED`` or ``OCCA_HIP_ENABLED`` are on      |
 +----------------------+----------------------------+---------+------------------------------------------------------------+
+

@@ -3,22 +3,19 @@
 User guide
 ==========
 
-This section:
+This section explains the basic structure and functionality of nekRS from a 
+user perspective (I.E. what will be applicable to most people using nekRS). 
+If you wish to view information relevant to developing nekRS and contributing 
+changes please look at the :ref:`developer`.
 
-* Explains the high level structure of nekRS 
-* Instructs how to acquire, compile and run nekRS
-* Provides an explanation of the different input and output files used by nekRS
+The image below shows the high level dataflow of using nekRS.
 
 .. image:: ../_static/img/overview.svg
 
-This is all done from a user perspective which will be applicable to most people
-interested in nekRS. If you wish to view information relevant to developing 
-nekRS and contributing changes please look at the :ref:`developer`.
-
 .. toctree::
-    :maxdepth: 2
+    :titlesonly:
     
-    compiling
+    installing
     input_files
     commonly_used_variables
     detailed_usage

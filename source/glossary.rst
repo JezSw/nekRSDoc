@@ -59,6 +59,9 @@ Glossary
     HPC
       High Performance Computing
 
+    Metal
+      Low-level, low-overhead hardware-accelerated 3D graphic and compute shader API created by Apple
+
     MPI
       Message Passing Interface
 
