@@ -18,6 +18,7 @@ The image below shows the high level dataflow of using nekRS.
     installing
     input_files
     commonly_used_variables
+    running
     detailed_usage
     plugins
     just_in_time_compilation

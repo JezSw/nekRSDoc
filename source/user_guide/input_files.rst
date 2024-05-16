@@ -33,6 +33,8 @@ The scope of this page is merely to introduce the format and purpose of the four
 files needed to set up a nekRS simulation. Much more detailed instructions are provided
 on the :ref:`FAQs <detailed>` page.
 
+.. _parameterFile:
+
 Parameter File (.par)
 _____________________
 
