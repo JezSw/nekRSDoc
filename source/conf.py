@@ -236,5 +236,5 @@ def build_doxygen(app):
 
 
 def setup(app):
-    #app.connect("builder-inited", build_doxygen)
+    app.connect("builder-inited", build_doxygen)
     pass
