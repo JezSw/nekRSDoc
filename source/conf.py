@@ -184,40 +184,32 @@ epub_exclude_files = ["search.html"]
 
 # -- Build Doxygen ---------------------------------------------------
 
-
-# def clone_nekrs(app):
-#     nekrs_srcdir = path.abspath(path.join(app.outdir, "nekRS"))
-#     if not path.exists(nekrs_srcdir):
-#         # subprocess.run(['git', 'clone', 'https://github.com/Nek5000/nekRS.git', nekrs_srcdir], universal_newlines=True, check=True)
-#         subprocess.run(
-#             ["git", "clone", "https://github.com/Nek5000/nekRS.git", nekrs_srcdir],
-#             check=True,
-#         )
-#     else:
-#         # subprocess.run(['git', 'pull'], cwd=nekrs_srcdir, universal_newlines=True, check=True)
-#         subprocess.run(["git", "pull"], cwd=nekrs_srcdir, check=True)
-#     shutil.copy(path.join(app.srcdir, "Doxyfile"), nekrs_srcdir)
-
-
 def build_doxygen(app):
     # Get output directories from Doxyfile
+    doxyfile = path.join(app.srcdir, "Doxyfile")
     try:
-        with open(path.join(app.srcdir, "Doxyfile")) as f:
+        with open(doxyfile) as f:
             doxy_opts = f.read()
     except IOError:
-        print(f"Cannot open Doxyfile at {app.srcdir}, quitting")
+        print(f"Cannot open Doxyfile at {doxyfile}, quitting")
+
+    output_match = re.search("OUTPUT_DIRECTORY\s*=\s*(.*)", doxy_opts)
+    if output_match and len(output_match.groups()) > 0:
+        output_dir = output_match.group(1)
+    else:
+        print("Cannot find Doxygen output directory, quitting")
         exit(-1)
-    
+
     xml_match = re.search("XML_OUTPUT\s*=\s*(.*)", doxy_opts)
     if xml_match and len(xml_match.groups()) > 0:
-        doxygen_xmldir = xml_match.group(1)
+        doxygen_xmldir = path.join(output_dir, xml_match.group(1))
     else:
         print("Cannot find Doxygen XML output path, quitting")
         exit(-1)
 
     html_match = re.search("HTML_OUTPUT\s*=\s*(.*)", doxy_opts)
     if html_match and len(html_match.groups()) > 0:
-        doxygen_htmldir = html_match.group(1)
+        doxygen_htmldir = path.join(output_dir, html_match.group(1))
     else:
         print("Cannot find Doxygen HTML output path, quitting")
         exit(-1)
