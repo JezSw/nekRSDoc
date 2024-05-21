@@ -76,6 +76,8 @@ or download a release
     user$ tar -xzvf v23.0.tar.gz
     user$ cd nekRS-23.0
 
+.. _nekrs_home:
+
 Set NEKRS_HOME
 --------------
 
