@@ -1,6 +1,6 @@
 .. _detailed:
 
-FAQs
+Detailed Usage
 ===================
 
 This page describes how to perform a wide variety of user interactions with nekRS
@@ -12,52 +12,6 @@ the overall code structure. Throughout this section, variables and data structur
 in the nekRS source code are referenced - a list defining these variables and structures
 is available on the :ref:`Commonly Used Variables <commonly_used_variables>` page
 for reference.
-
-.. _scripts:
-
-Building the Nek5000 Tool Scripts
----------------------------------
-
-Some user actions in nekRS require the use of scripts available with :term:`Nek5000`.
-To build these scripts, you will need to separately clone Nek5000, and then
-navigate to the ``tools`` directory and run the makefile to compile all the scripts.
-
-.. code-block::
-
-  user$ git clone https://github.com/Nek5000/Nek5000.git
-  user$ cd Nek5000/tools
-  user$ ./maketools all
-
-This should create binary executables in the ``Nek5000/bin``
-directory. You may want to add this to your path in order to quickly access those scripts.
-
-.. _nekrs_scripts:
-
-Scripts That Ship with nekRS
-----------------------------
-
-In addition to the scripts that ship with Nek5000 described in
-:ref:`Building the Nek5000 Tool Scripts <scripts>`, a number of scripts ship with nekRS itself.
-These scripts are located in the ``$NEKRS_HOME/bin`` directory, where ``NEKRS_HOME`` is an
-environment variable set as part of the build process. A brief summary of these scripts and
-their usage is as follows.
-
-* ``nrsmpi <casename> <processes>``: run nekRS in parallel with ``<processes>`` parallel
-  processes for the case files that are prefixed with ``casename``.
-* ``nrsbmpi <casename> <processes>``: same as ``nrsmpi``, except that nekRS runs
-  in the background
-* ``nrspre <casename> <target GPUs>``: precompile nekRS case (see
-  :ref:`Just-in-time Compilation <just_in_time_compilation>`)
-* ``nrsqsub_lassen <casename> <nodes> <wall time>``: submission script for
-  `<Lassen https://computing.llnl.gov/computers/lassen>`__, a supercomputer
-  at Lawrence Livermore National Laboratory. A number of other settings are specified
-  within the script itself.
-* ``nrsqsub_summit <casename> <nodes> <wall time>``: submission script for
-  `<Summit https://www.olcf.ornl.gov/summit/>`__, a supercomputer
-  at Oak Ridge National Laboratory. A number of other settings are specified within the
-  script itself.
-* ``nrsvis <casename>``: postprocess ``fld``-type nekRS output files into a form
-  readable by Paraview or Visit.
 
 .. _converting_mesh:
 
@@ -639,7 +593,7 @@ to the process for declaring custom properties in :ref:`Setting Custom Propertie
 so you may find it useful to first review that section.
 
 The Momentum Equation
-^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 To set a custom source term for the momentum equation, you must assign the
 ``udf.uEqnSource`` function pointer to a function with a signature that takes the ``nrs`` pointer
@@ -724,7 +678,7 @@ The ``constantFill`` kernel is now defined in the ``.oudf`` file as follows.
   }
 
 The Energy Equation
-^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""
 
 .. _nondimensional:
 

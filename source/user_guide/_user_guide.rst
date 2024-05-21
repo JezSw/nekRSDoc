@@ -13,7 +13,6 @@ The image below shows the high level dataflow of using nekRS.
 .. image:: ../_static/img/overview.svg
 
 .. toctree::
-    :titlesonly:
     
     installing
     input_files

@@ -3,10 +3,10 @@
 Installing nekRS
 ================
 
-This page gives a variety of information to help install the nekRS.
-This includes how to acquire & build nekRS appropriately to your environment, as 
-well as some information on the scripts that may be required to pre/post process
-files or help with running options.
+This page gives a variety of information to help install nekRS. This includes 
+how to acquire & build nekRS appropriately to your environment, as well as some 
+information on the scripts from nek5000 that may be required to 
+pre/post process files or help with running options.
 
 Requirements
 ------------
@@ -24,11 +24,11 @@ You will require the following to compile/run nekRS.
 
 It is also suggested that you have a GPU and the corresponding drivers/API 
 installed to increase performance. This will likely be a NVidia (:term:`CUDA`), 
-:term:`AMD` (:term:`HIP`),
-Intel (:term:`DPC++`/:term:`oneAPI`) or Apple (:term:`Metal`) device/API 
-combination, with any restrictions of the these below:
+:term:`AMD` (:term:`HIP`), Intel (:term:`DPC++`/:term:`oneAPI`) or Apple 
+(:term:`Metal`) device/API combination. N.B. There may be restrictions for some 
+toolchains:
 
-* CUDA - toolkit must be version >= 11 and < 12
+* **CUDA** - toolkit must be version >= 11 and < 12
 
 Dependencies
 ------------
@@ -47,9 +47,9 @@ they are compiled as part of the nekRS build process from the
 | CVODE      | Y        | Solver for stiff and nonstiff ordinary differential equation (ODE) | ???          | https://github.com/LLNL/sundials     |
 |            |          | systems form y' = f(t,y)                                           |              |                                      |
 +------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
-| GSlib      | N        | ???                                                                | ???          | https://github.com/Nek5000/gslib     |
+| GSlib      | N        | Meshing library                                                    | ???          | https://github.com/Nek5000/gslib     |
 +------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
-| HYPRE      | Y        | Library of high performance, multigrid preconditioners/solvers of  | ???          | https://github.com/hypre-space/hypre |
+| HYPRE      | N        | Library of high performance, multigrid preconditioners/solvers of  | ???          | https://github.com/hypre-space/hypre |
 |            |          | large, sparse linear systems of equations                          |              |                                      |
 +------------+----------+--------------------------------------------------------------------+--------------+--------------------------------------+
 | nek5000    | N        | Fortran predecessor to nekRS                                       | ???          | https://github.com/Nek5000/Nek5000   |
@@ -182,3 +182,22 @@ Optional features
 |                      |                            |         | ``OCCA_DPCPP_ENABLED`` or ``OCCA_HIP_ENABLED`` are on      |
 +----------------------+----------------------------+---------+------------------------------------------------------------+
 
+.. _scripts:
+
+Building the Nek5000 Tool Scripts
+---------------------------------
+
+Some user actions in nekRS require the use of scripts available with :term:`Nek5000`.
+To build these scripts, you will need to separately clone Nek5000, and then
+navigate to the ``tools`` directory and run the makefile to compile all the scripts.
+
+.. code-block::
+
+  user$ git clone https://github.com/Nek5000/Nek5000.git
+  user$ cd Nek5000/tools
+  user$ ./maketools all
+
+This should create binary executables in the ``Nek5000/bin`` directory. 
+You may want to add this to your path in order to quickly access those scripts. 
+There is additional information about these scripts in the nek5000 docs 
+`here <https://nek5000.github.io/NekDoc/tools.html>`_.
