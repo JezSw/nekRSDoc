@@ -106,8 +106,7 @@ html_css_files = [
 ]
 
 html_extra_path = [
-    "../build/doxygen",
-    "build/doxygen"
+    "doxygen"
 ]
 
 # -- Options for HTMLHelp output ------------------------------------------
