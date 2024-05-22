@@ -193,23 +193,23 @@ def build_doxygen(app):
     except IOError:
         print(f"Cannot open Doxyfile at {doxyfile}, quitting")
 
-    output_match = re.search("OUTPUT_DIRECTORY\s*=\s*(.*)", doxy_opts)
+    output_match = re.search(r"OUTPUT_DIRECTORY\s*=\s*(.*)", doxy_opts)
     if output_match and len(output_match.groups()) > 0:
-        output_dir = output_match.group(1)
+        output_dir = path.join(app.srcdir, output_match.group(1).strip('"'))
     else:
         print("Cannot find Doxygen output directory, quitting")
         exit(-1)
 
-    xml_match = re.search("XML_OUTPUT\s*=\s*(.*)", doxy_opts)
+    xml_match = re.search(r"XML_OUTPUT\s*=\s*(.*)", doxy_opts)
     if xml_match and len(xml_match.groups()) > 0:
-        doxygen_xmldir = path.join(output_dir, xml_match.group(1))
+        doxygen_xmldir = path.join(output_dir, xml_match.group(1).strip('"'))
     else:
         print("Cannot find Doxygen XML output path, quitting")
         exit(-1)
 
-    html_match = re.search("HTML_OUTPUT\s*=\s*(.*)", doxy_opts)
+    html_match = re.search(r"HTML_OUTPUT\s*=\s*(.*)", doxy_opts)
     if html_match and len(html_match.groups()) > 0:
-        doxygen_htmldir = path.join(output_dir, html_match.group(1))
+        doxygen_htmldir = path.join(output_dir, html_match.group(1).strip('"'))
     else:
         print("Cannot find Doxygen HTML output path, quitting")
         exit(-1)
