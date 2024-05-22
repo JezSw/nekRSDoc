@@ -105,6 +105,11 @@ html_css_files = [
     'css/nekrs.css',
 ]
 
+html_extra_path = [
+    "../build/doxygen",
+    "build/doxygen"
+]
+
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
